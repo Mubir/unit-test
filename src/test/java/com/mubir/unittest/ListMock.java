@@ -2,6 +2,7 @@ package com.mubir.unittest;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -34,5 +35,25 @@ public class ListMock {
         String value2 =(String) ll.get(1);
         verify(ll).get(0);// if get is called or not
         verify(ll,atMost(2)).get(anyInt());// verify that at most 2 times called.
+    }
+
+    @Test
+    public void captureArgument() {
+        ll.add("helloworld");
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        verify(ll).add(captor.capture());
+        assertEquals(captor.getValue(),"helloworld");
+    }
+
+    @Test
+    public void captureArgumentMultple() {
+        ll.add("helloworld");
+        ll.add("helloMars");
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        // times is important as we are calling 2 times.
+        verify(ll,times(2)).add(captor.capture());
+        List<String> data = captor.getAllValues();
+        assertEquals(data.get(0),"helloworld");
+        assertEquals("helloMars",data.get(1));
     }
 }
