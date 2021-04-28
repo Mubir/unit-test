@@ -7,8 +7,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ListMock {
@@ -27,5 +26,13 @@ public class ListMock {
         when(ll.get(66)).thenReturn("helloworld");
         assertEquals("helloworld",ll.get(66));
 
+    }
+    @Test
+    public void verifyUsages()
+    {
+        String value =(String) ll.get(0);
+        String value2 =(String) ll.get(1);
+        verify(ll).get(0);// if get is called or not
+        verify(ll,atMost(2)).get(anyInt());// verify that at most 2 times called.
     }
 }
