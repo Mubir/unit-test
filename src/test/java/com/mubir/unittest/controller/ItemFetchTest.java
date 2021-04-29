@@ -8,27 +8,27 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(AbcController.class)
-class AbcControllerTest {
+@WebMvcTest(ItemFetch.class)
+class ItemFetchTest {
     @Autowired
     private MockMvc mvc;
 
     @Test
-    public void getEchoTest () throws Exception
+    public void itemTest() throws Exception
     {
-        // build request and content type
-        RequestBuilder request = MockMvcRequestBuilders
-                .get("/echo")
+        RequestBuilder requet = MockMvcRequestBuilders
+                .get("/item")
                 .accept(MediaType.APPLICATION_JSON);
-        MvcResult result = mvc.perform(request)
+
+        MvcResult result = mvc.perform(requet)
                 .andExpect(status().isOk())
-                .andExpect(content().string("hello can you hear me"))
+                .andExpect(content().json("{\"id\":1,\"name\":\"Banana\",\"price\":78,\"quantity\":4}"))
                 .andReturn();
-        //verify
-        assertEquals("hello can you hear me",result.getResponse().getContentAsString());
+
     }
 }
