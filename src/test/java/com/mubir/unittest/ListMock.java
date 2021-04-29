@@ -33,7 +33,7 @@ public class ListMock {
     {
         String value =(String) ll.get(0);
         String value2 =(String) ll.get(1);
-        verify(ll).get(0);// if get is called or not
+        verify(ll).get(1);// if get is called or not
         verify(ll,atMost(2)).get(anyInt());// verify that at most 2 times called.
     }
 
