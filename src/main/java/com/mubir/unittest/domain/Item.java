@@ -1,11 +1,24 @@
 package com.mubir.unittest.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+@Entity
 public class Item {
+    @Id
     public  int id;
     public String name;
     public int price;
     public int quantity;
 
+    public Item() {
+
+    }
+
+
+
+    @Transient
+    public int value;
     public Item(int id, String name, int price, int quantity) {
         this.id = id;
         this.name = name;
@@ -44,7 +57,13 @@ public class Item {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+    public int getValue() {
+        return value;
+    }
 
+    public void setValue(int value) {
+        this.value = value;
+    }
 
     @Override
     public String toString() {
